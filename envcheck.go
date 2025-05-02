@@ -136,8 +136,8 @@ func cmdCreate(cmd *cobra.Command, args []string) error {
 	if _, err := os.Stat(exampleFile); os.IsNotExist(err) {
 		return fmt.Errorf("✗ Error: Example file %s not found.", exampleFile)
 	}
-	if _, err := os.Stat(envFile); os.IsNotExist(err) {
-		return fmt.Errorf("✗ Error: Env file %s not found.", envFile)
+	if _, err := os.Stat(envFile); !os.IsNotExist(err) {
+		return fmt.Errorf("✗ Error: %s already exists. Use 'update' instead.", envFile)
 	}
 
 	return createEnvFile(envFile, exampleFile)
@@ -305,10 +305,6 @@ func updateEnvFile(envFile, exampleFile string) error {
 }
 
 func createEnvFile(envFile, exampleFile string) error {
-	if _, err := os.Stat(envFile); !os.IsNotExist(err) {
-		return fmt.Errorf("✗ Error: %s already exists. Use 'update' instead.", envFile)
-	}
-
 	exampleVars, err := parseEnvFile(exampleFile)
 	if err != nil {
 		return err
