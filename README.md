@@ -52,7 +52,7 @@ TABLES=transactions
 TIMEOUT=
 ```
 
-```bash
+```
 $ envcheck list
 Listing env files in path: .
 Found 1 example files and 0 env files.
