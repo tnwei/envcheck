@@ -164,15 +164,13 @@ Usage:
   envcheck [command] [options]
 
 Commands:
-  list
-    list all .env.* files and .env.example files and their diffs
+  envcheck list [dir] <env_file> <example_file>     - List env files and difference
+  envcheck create <env_file> <example_file>         - Create env file from example
+  envcheck update <env_file> <example_file>         - Update env file with missing keys
 
-  create <env_file> [example_file]
-    create .env from .env.example
-    <env_file> defaults to ".env", [example_file] defaults to ".env.example"
-  
-  update <env_file> [example_file]
-    update an .env file with missing keys from an .env.example file
+Flags:
+  --env_file defaults to ".env"
+  --example_file defaults to ".env.example"
 
 Examples:
   envcheck list
