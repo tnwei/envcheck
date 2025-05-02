@@ -175,8 +175,6 @@ Flags:
 Examples:
   envcheck list
   envcheck list ./deploy/
-  envcheck scan
-  envcheck scan ./build/
   envcheck create .env   
   envcheck create prod/.env prod/.env.example
   envcheck create .env.staging .env.example
