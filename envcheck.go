@@ -27,7 +27,8 @@ func main() {
 
 	var listCmd = &cobra.Command{
 		Short: "List all .env.* files and .env.example files and their diffs",
-		Use:   "list",
+		Use:   "list [path]",
+		Args:  cobra.MaximumNArgs(1),
 		RunE:  cmdList,
 	}
 	listCmd.Flags().StringP("path", "p", ".", "Path to search for env files")
@@ -66,7 +67,12 @@ func main() {
 }
 
 func cmdList(cmd *cobra.Command, args []string) error {
-	path := cmd.Flag("path").Value.String()
+	var path string
+	if len(args) > 0 {
+		path = args[0]
+	} else {
+		path = "."
+	}
 
 	envFiles, exampleFiles, err := listEnvFiles(defaultExample, path)
 	if err != nil {
@@ -79,7 +85,7 @@ func cmdList(cmd *cobra.Command, args []string) error {
 		fmt.Printf("✗ No example files (like %s) found.\n", defaultExample)
 	}
 
-	fmt.Printf("Found %d example files and %d env files.\n", len(exampleFiles), len(envFiles))
+	fmt.Printf("Found %d example files and %d env files.\n\n", len(exampleFiles), len(envFiles))
 
 	for _, exampleFile := range exampleFiles {
 		exampleVars, err := parseEnvFile(exampleFile)
