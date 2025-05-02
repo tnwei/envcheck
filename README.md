@@ -42,15 +42,55 @@ Examples:
   envcheck update .env.development dev/.env.example
 ```
 
-Examples of `.env` and `.env.example`:
+## Sample output
+
+Given `.env.example`:
 
 ```
-# .env
 API_KEY=123456
 TABLES=transactions
-
-# .env.example
-API_KEY=
-TABLES=
 TIMEOUT=
+```
+
+```bash
+$ envcheck list
+Listing env files in path: .
+Found 1 example files and 0 env files.
+
+⚠ .env doesn't exist (template available: .env.example)
+
+$ envcheck create
+✓ Created .env with 2 keys from .env.example
+
+$ cat .env
+API_KEY=123456
+TABLES=transactions
+TIMEOUT=
+
+$ echo PORT=4321 >> .env.example
+
+$ envcheck update
+✓ Added 1 missing keys to .env
+  + PORT
+
+$ envcheck update
+✓ .env is in sync with .env.example
+
+$ envcheck create
+Error: ✗ Error: .env already exists. Use 'update' instead.
+Usage:
+  envcheck create [flags]
+
+Flags:
+  -e, --env-file string       Path to the environment file (default ".env")
+  -x, --example-file string   Path to the example file (default ".env.example")
+  -h, --help                  help for create
+
+✗ Error: .env already exists. Use 'update' instead.
+
+$ envcheck list
+Listing env files in path: .
+Found 1 example files and 1 env files.
+
+✓ .env is in sync with .env.example
 ```
