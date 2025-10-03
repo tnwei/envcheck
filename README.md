@@ -8,7 +8,7 @@ Was losing my mind trying to keep env vars configured properly for deployments a
 
 ## Installation
 
-Install with golang: `go get -u https://github.com/tnwei/envcheck`
+Install with golang: `go install github.com/tnwei/envcheck@latest`
 
 Or `git clone` this repo, then run `go build` in the repo directory
 
