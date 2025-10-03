@@ -1,4 +1,4 @@
-module tnwei/envcheck
+module github.com/tnwei/envcheck
 
 go 1.21.4
 
