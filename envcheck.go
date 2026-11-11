@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"time"
 )
 
 var defaultExample = ".env.example"
@@ -283,7 +284,8 @@ func updateEnvFile(envFile, exampleFile string) error {
 	defer file.Close()
 
 	if exists {
-		_, err = file.WriteString(fmt.Sprintf("\n# Added by envcheck from %s\n", exampleFile))
+		now := time.Now()
+		_, err = file.WriteString(fmt.Sprintf("\n# Added by envcheck from %s on %s\n", exampleFile, now.Format("2006-01-02")))
 		if err != nil {
 			return err
 		}
